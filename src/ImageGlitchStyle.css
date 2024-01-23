@@ -1,0 +1,37 @@
+/* Your existing CSS */
+main {
+    position: relative;
+    min-height: 720px;
+  }
+  
+  .glitch {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+  }
+  
+  .glitch__background,
+  .glitch__box {
+    position: absolute;
+    background-image: url("https://www.codepel.com/img/joshua-rondeau.jpg");
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    background-color: #b5bac2;
+  }
+  
+  .glitch__background {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+  
+  .glitch__box {
+    /* Customize as needed */
+  }
+  
