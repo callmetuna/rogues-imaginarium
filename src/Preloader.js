@@ -3,8 +3,10 @@ import * as THREE from 'three';
 
 const Sunflower = () => {
   const [points, setPoints] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const canvasRef = useRef(null);
 
+  // Function to animate the sunflower points
   const animateSunflower = useCallback(() => {
     // Apply a slight rotation for each frame
     const updatedPoints = points.map((point) => {
@@ -15,8 +17,8 @@ const Sunflower = () => {
     setPoints(updatedPoints); // Re-render with updated points
   }, [points]);
 
+  // Initial generation of sunflower points
   useEffect(() => {
-    // Generate sunflower points using a mathematical formula
     const newPoints = [];
     for (let i = 0; i < 300; i++) {
       const angle = Math.PI * 2 * i / 300;
@@ -26,12 +28,25 @@ const Sunflower = () => {
     setPoints(newPoints);
   }, []);
 
+  // Simulate loading state
+  useEffect(() => {
+    const loadingTimeout = setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+
+    return () => clearTimeout(loadingTimeout);
+  }, []);
+
+  // Draw the sunflower on the canvas
   useEffect(() => {
     const canvas = canvasRef.current;
     const context = canvas.getContext('2d');
+    
+    // Set canvas size explicitly
+    canvas.width = 300;
+    canvas.height = 300;
 
     const drawSunflower = () => {
-      // Clear the canvas
       context.clearRect(0, 0, canvas.width, canvas.height);
 
       // Draw sunflower points
@@ -39,7 +54,7 @@ const Sunflower = () => {
       points.forEach((point) => {
         const scale = 3;
         context.beginPath();
-        context.arc(point.x * scale, point.y * scale, scale, 0, 2 * Math.PI);
+        context.arc(point.x * scale + canvas.width / 2, point.y * scale + canvas.height / 2, scale, 0, 2 * Math.PI);
         context.fill();
       });
     };
@@ -51,6 +66,10 @@ const Sunflower = () => {
 
     return () => clearInterval(animation);
   }, [animateSunflower, points]);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <canvas

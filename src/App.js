@@ -1,12 +1,12 @@
 import React from 'react';
-import Sunflower from './Sunflower';
-import UnderConstruction from './UnderConstruction';
+import Home from './Home';
+import Sidebar from './componenets/Sidebar';
 
 function App() {
   return (
     <div className="App">
-      <Sunflower />
-      <UnderConstruction />
+      <Sidebar/>
+      <Home />
     </div>
   );
 }
